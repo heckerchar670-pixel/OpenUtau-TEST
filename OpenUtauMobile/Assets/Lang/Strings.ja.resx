@@ -476,7 +476,7 @@
     <value>テーマカラー</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Desc" xml:space="preserve">
-    <value>システムのアクセントカラーに従うか、カスタムのシードカラーを選択します。</value>
+    <value>テーマを選択します。UTAUの外観はアプリの再起動後にすべて反映されます。</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Mode.FollowSystem" xml:space="preserve">
     <value>システムに従う</value>

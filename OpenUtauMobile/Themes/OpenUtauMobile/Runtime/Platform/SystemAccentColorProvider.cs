@@ -133,48 +133,10 @@ public static class ThemeSeedResolver
 {
     public static Color ResolveSeed(ISystemAccentColorProvider? provider, out string source, out string fallbackReason)
     {
-        ThemeColorMode mode = Preferences.Default.ThemeColorMode == (int)ThemeColorMode.Custom
-            ? ThemeColorMode.Custom
-            : ThemeColorMode.FollowSystem;
-
-        string seedHex = Preferences.Default.ThemeColorSeedHex;
-
-        if (mode == ThemeColorMode.FollowSystem)
-        {
-            if (TryGetProviderColor(provider, out Color systemSeed, out source))
-            {
-                fallbackReason = string.Empty;
-                return systemSeed;
-            }
-
-            if (TryParseHexSeed(seedHex, out Color customSeed))
-            {
-                source = "CustomSeed";
-                fallbackReason = "SystemUnavailableUseCustom";
-                return customSeed;
-            }
-
-            source = "Default";
-            fallbackReason = "SystemUnavailableAndCustomInvalid";
-            return Color.Parse("#FF0000");
-        }
-
-        if (TryParseHexSeed(seedHex, out Color customModeSeed))
-        {
-            source = "CustomSeed";
-            fallbackReason = string.Empty;
-            return customModeSeed;
-        }
-
-        if (TryGetProviderColor(provider, out Color fallbackSystemSeed, out source))
-        {
-            fallbackReason = "CustomInvalidUseSystem";
-            return fallbackSystemSeed;
-        }
-
-        source = "Default";
-        fallbackReason = "CustomInvalidAndSystemUnavailable";
-        return Color.Parse("#FF0000");
+        // LUNAI: el color sale siempre del tema elegido.
+        source = string.Empty;
+        fallbackReason = string.Empty;
+        return LunaiThemes.CurrentSeed;
     }
 
     public static bool TryParseHexSeed(string? input, out Color color)
@@ -220,20 +182,6 @@ public static class ThemeSeedResolver
     public static string ToHex(Color color)
     {
         return $"#{color.R:X2}{color.G:X2}{color.B:X2}";
-    }
-
-    private static bool TryGetProviderColor(ISystemAccentColorProvider? provider, out Color color, out string source)
-    {
-        if (provider != null && provider.TryGetSystemSeed(out Color fromProvider, out string providerSource))
-        {
-            color = Color.FromRgb(fromProvider.R, fromProvider.G, fromProvider.B);
-            source = providerSource;
-            return true;
-        }
-
-        color = default;
-        source = string.Empty;
-        return false;
     }
 }
 

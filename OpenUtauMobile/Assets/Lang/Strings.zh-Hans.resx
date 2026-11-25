@@ -476,7 +476,7 @@
     <value>主题色</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Desc" xml:space="preserve">
-    <value>可跟随系统强调色，或使用自定义种子色。</value>
+    <value>选择主题。重启应用后 UTAU 外观才会完全生效。</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Mode.FollowSystem" xml:space="preserve">
     <value>跟随系统</value>

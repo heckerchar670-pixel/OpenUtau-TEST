@@ -312,8 +312,9 @@ public partial class SettingsViewModel : NavigateViewModelBase, IDisposable
     /// <summary>主题色模式选项。</summary>
     public IReadOnlyList<ThemeColorModeOption> AvailableThemeColorModes { get; } = new List<ThemeColorModeOption>
     {
-        new((int)ThemeColorMode.FollowSystem, L.S("Settings.Appearance.ThemeColor.Mode.FollowSystem")),
-        new((int)ThemeColorMode.Custom, L.S("Settings.Appearance.ThemeColor.Mode.Custom")),
+        new(LunaiThemes.OpenUtau, "OpenUtau"),
+        new(LunaiThemes.Lunai, "LUNAI OpenUTAU"),
+        new(LunaiThemes.Utau, "UTAU"),
     };
 
     /// <summary>当前主题色模式。</summary>
@@ -1494,8 +1495,7 @@ public partial class SettingsViewModel : NavigateViewModelBase, IDisposable
             : "#FF0000";
 
         SelectedThemeColorMode =
-            AvailableThemeColorModes.FirstOrDefault(m => m.Value == Preferences.Default.ThemeColorMode)
-            ?? AvailableThemeColorModes[0];
+            AvailableThemeColorModes.First(m => m.Value == LunaiThemes.Current);
         IsCustomThemeColorMode = SelectedThemeColorMode.Value == (int)ThemeColorMode.Custom;
 
         string presetId = Preferences.Default.ThemeColorPresetId;

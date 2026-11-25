@@ -119,6 +119,17 @@ jobs:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > signing.keystore
 
+      - name: Fuente pixelada (tema UTAU)
+        run: |
+          D=OpenUtauMobile/Assets/Fonts
+          B=https://github.com/google/fonts/raw/main/ofl/dotgothic16
+          mkdir -p "$D"
+          if curl -fsSL -o "$D/DotGothic16-Regular.ttf" "$B/DotGothic16-Regular.ttf" && curl -fsSL -o "$D/OFL.txt" "$B/OFL.txt"; then
+            echo "Fuente lista"
+          else
+            rm -f "$D/DotGothic16-Regular.ttf"
+            echo "::warning::No se pudo bajar la fuente pixelada; UTAU usara la normal"
+          fi
       - name: Publish Android ${{ inputs.arch }}
         shell: bash
         env:

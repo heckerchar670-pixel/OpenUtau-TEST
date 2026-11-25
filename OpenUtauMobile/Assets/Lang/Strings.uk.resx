@@ -405,7 +405,7 @@
     <value>Перемикання світлої й темної теми, слідування системній темі тощо.</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Desc" xml:space="preserve">
-    <value>Використовувати системний акцентний колір або вибрати власний первинний колір.</value>
+    <value>Виберіть тему. Для повного вигляду UTAU перезапустіть застосунок.</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Mode.FollowSystem" xml:space="preserve">
     <value>У системі</value>

@@ -97,6 +97,8 @@ public static class ThemeGenerator
             ["Sem.Color.SuccessContainer"] = ToColor(corePalette.Secondary[variant == ThemeVariant.Dark ? 30u : 90u]),
         };
 
+        LunaiThemes.Apply(seed, variant == ThemeVariant.Dark, semantic);
+
         // 状态色混合保持前景对比度，不使用旧版 PrimaryHover 的容器色跳变。
         foreach ((string background, string foreground) in new[]
         {

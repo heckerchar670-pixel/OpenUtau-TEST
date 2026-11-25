@@ -405,7 +405,7 @@
     <value>Переключение светлой и тёмной темы, следование системной теме и другое.</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Desc" xml:space="preserve">
-    <value>Использовать акцентный цвет системы или выбрать собственный исходный цвет.</value>
+    <value>Выберите тему. Для полного вида UTAU перезапустите приложение.</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Mode.FollowSystem" xml:space="preserve">
     <value>Следовать системе</value>

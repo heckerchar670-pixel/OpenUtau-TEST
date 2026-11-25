@@ -3,7 +3,8 @@
                     xmlns:components="using:OpenUtauMobile.Themes.OpenUtauMobile.Tokens.Components"
                     xmlns:foundation="using:OpenUtauMobile.Themes.OpenUtauMobile.Tokens.Foundation"
                     xmlns:semantic="using:OpenUtauMobile.Themes.OpenUtauMobile.Tokens.Semantic"
-                    xmlns:chrome="using:OpenUtauMobile.Themes.OpenUtauMobile.Controls">
+                    xmlns:chrome="using:OpenUtauMobile.Themes.OpenUtauMobile.Controls"
+                    xmlns:runtime="using:OpenUtauMobile.Themes.OpenUtauMobile.Runtime">
   <!-- 所有按钮复用同一个模板和状态机；外部样式只设置角色与布局。 -->
   <ControlTheme x:Key="{x:Type Button}" TargetType="Button">
     <Setter Property="Background" Value="{DynamicResource Sem.Color.SurfaceContainerHigh}" />
@@ -27,6 +28,11 @@
                   BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding CornerRadius}"
                   BoxShadow="{TemplateBinding chrome:ButtonChrome.BoxShadow}" />
+          <!-- Relieve del tema UTAU retro -->
+          <Border BorderBrush="#B0FFFFFF" BorderThickness="2,2,0,0" IsHitTestVisible="False"
+                  IsVisible="{x:Static runtime:LunaiThemes.IsRetro}" />
+          <Border BorderBrush="#90000000" BorderThickness="0,0,2,2" IsHitTestVisible="False"
+                  IsVisible="{x:Static runtime:LunaiThemes.IsRetro}" />
           <Border Name="PART_StateLayer" Background="{TemplateBinding Foreground}"
                   CornerRadius="{TemplateBinding CornerRadius}" IsHitTestVisible="False" Opacity="0" />
           <ContentPresenter Name="PART_ContentPresenter" Content="{TemplateBinding Content}"

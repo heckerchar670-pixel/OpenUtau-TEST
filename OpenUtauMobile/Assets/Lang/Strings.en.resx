@@ -476,7 +476,7 @@
     <value>Theme Color</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Desc" xml:space="preserve">
-    <value>Follow system accent color or choose a custom seed color.</value>
+    <value>Pick a theme. Restart the app to fully apply the UTAU look.</value>
   </data>
   <data name="Settings.Appearance.ThemeColor.Mode.FollowSystem" xml:space="preserve">
     <value>Follow System</value>

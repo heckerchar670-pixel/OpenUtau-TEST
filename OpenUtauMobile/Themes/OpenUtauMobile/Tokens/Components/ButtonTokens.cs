@@ -9,7 +9,7 @@ public static class ButtonTokens
     public static Thickness Padding => new(16, 10);
     public static CornerRadius CornerRadius => ShapeTokens.CornerM;
     // 有限大半径避免极大浮点数在渲染器中溢出。
-    public static CornerRadius ActionCornerRadius => new(999);
+    public static CornerRadius ActionCornerRadius => new(global::OpenUtauMobile.Themes.OpenUtauMobile.Runtime.LunaiThemes.IsRetro ? 0 : 999);
     public static Thickness ActionPadding => new(24, 8);
     public static Thickness TextActionPadding => new(12, 8);
     public static double ActionMinHeight => 40d;

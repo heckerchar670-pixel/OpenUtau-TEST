@@ -1,6 +1,8 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Styling;
 using Avalonia.Threading;
@@ -33,6 +35,14 @@ public partial class App : Application
         RequestedThemeVariant = ParseThemePreference(Preferences.Default.ThemeName);
 
         ServiceHub.SystemAccentColorProvider ??= new DefaultSystemAccentColorProvider();
+
+        // Fuente pixelada del tema UTAU (si el workflow no la descargo, queda la normal).
+        Uri pixelFont = new("avares://OpenUtauMobile/Assets/Fonts/DotGothic16-Regular.ttf");
+        if (LunaiThemes.IsRetro && AssetLoader.Exists(pixelFont))
+        {
+            Resources["ContentControlThemeFontFamily"] =
+                new FontFamily(pixelFont.AbsoluteUri + "#DotGothic16");
+        }
 
         // Initialize runtime theme resources before creating UI.
         ThemeManagerV2.Initialize();
