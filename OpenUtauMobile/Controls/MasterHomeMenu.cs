@@ -13,12 +13,10 @@ namespace OpenUtauMobile.Controls;
 /// </summary>
 public class MasterHomeMenu : UserControl
 {
-    // 四列，列间距 50，与旧版 Grid 的 ColumnSpacing 一致
-    private readonly StackPanel _row = new()
+    // 四个等宽列，窄屏也不会被裁掉
+    private readonly Grid _row = new()
     {
-        Orientation = Orientation.Horizontal,
-        Spacing = 50,
-        HorizontalAlignment = HorizontalAlignment.Center,
+        ColumnDefinitions = new ColumnDefinitions("*,*,*,*"),
         Margin = new Thickness(10),
     };
 
@@ -70,6 +68,8 @@ public class MasterHomeMenu : UserControl
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
         };
-        _row.Children.Add(new StackPanel { Width = 60, Children = { button, label } });
+        StackPanel cell = new() { Width = 60, HorizontalAlignment = HorizontalAlignment.Center, Children = { button, label } };
+        Grid.SetColumn(cell, _row.Children.Count);
+        _row.Children.Add(cell);
     }
 }

@@ -9,6 +9,7 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Threading;
 using OpenUtauMobile.Services.Dialogs;
+using OpenUtauMobile.Themes.OpenUtauMobile.Runtime;
 using OpenUtauMobile.ViewModels;
 
 namespace OpenUtauMobile.Views;
@@ -19,6 +20,8 @@ public partial class HomeView : UserControl
     public HomeView()
     {
         InitializeComponent();
+        // OldUI：隐藏 dev 的动作按钮区，只保留旧版 master 的首页菜单
+        SectionA.IsVisible = LunaiThemes.Current != LunaiThemes.Master;
         _newProjectHoldTimer.Tick += NewProjectHoldElapsed;
         NewProjectButton.AddHandler(PointerPressedEvent, NewProjectPointerPressed, RoutingStrategies.Tunnel, handledEventsToo: true);
         NewProjectButton.AddHandler(PointerMovedEvent, NewProjectPointerMoved, RoutingStrategies.Tunnel, handledEventsToo: true);

@@ -43,6 +43,12 @@
             <!-- 音频设备异步刷新时沿用页面顶栏加载指示。 -->
             <ProgressBar DockPanel.Dock="Top" Classes="TopBarLoading" IsVisible="{Binding IsRefreshingDevices}" />
 
+            <!-- OldUI 模式下才显示：返回 Dev UI -->
+            <Button DockPanel.Dock="Top" Margin="24,8" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                    IsVisible="{Binding IsOldUi}" Command="{Binding BackToDevCommand}">
+                <TextBlock TextWrapping="Wrap" Text="Back to Dev UI to use OpenUtau Lunai, UTAU and OpenUtau themes" />
+            </Button>
+
             <Border DockPanel.Dock="Top" Padding="24,8" IsVisible="{Binding HasInitializationError}">
                 <ScrollViewer MaxHeight="160" HorizontalScrollBarVisibility="Disabled">
                     <TextBlock Text="{Binding InitializationError}" TextWrapping="Wrap"
@@ -1377,5 +1383,6 @@
 
             </Grid>
         </DockPanel>
+        <c:OldUiRestartOverlay IsVisible="{Binding IsRestartRequired}" />
     </Panel>
 </UserControl>

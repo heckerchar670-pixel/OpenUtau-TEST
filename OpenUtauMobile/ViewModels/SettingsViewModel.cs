@@ -322,6 +322,17 @@ public partial class SettingsViewModel : NavigateViewModelBase, IDisposable
     [Reactive]
     public ThemeColorModeOption? SelectedThemeColorMode { get; set; }
 
+    /// <summary>选择 OldUI 后需要重启应用才能完整生效，用于显示全屏重启提示。</summary>
+    [Reactive]
+    public bool IsRestartRequired { get; set; }
+
+    /// <summary>应用是否以 OldUI 模式启动（决定是否显示“返回 Dev UI”按钮）。</summary>
+    [Reactive]
+    public bool IsOldUi { get; set; }
+
+    /// <summary>从 OldUI 返回 Dev UI（LUNAI 主题）并要求重启。</summary>
+    public ReactiveCommand<Unit, Unit> BackToDevCommand { get; private set; } = null!;
+
     /// <summary>预设主题色集合。</summary>
     [Reactive]
     public IReadOnlyList<ThemeSeedPresetOption> PresetSeedColors { get; private set; } = [];
@@ -1497,6 +1508,13 @@ public partial class SettingsViewModel : NavigateViewModelBase, IDisposable
 
         SelectedThemeColorMode =
             AvailableThemeColorModes.First(m => m.Value == LunaiThemes.Current);
+        IsOldUi = LunaiThemes.Current == LunaiThemes.Master;
+        BackToDevCommand = ReactiveCommand.Create(() =>
+        {
+            Preferences.Default.ThemeColorMode = LunaiThemes.Lunai;
+            Preferences.Save();
+            IsRestartRequired = true;
+        });
         IsCustomThemeColorMode = SelectedThemeColorMode.Value == (int)ThemeColorMode.Custom;
 
         string presetId = Preferences.Default.ThemeColorPresetId;
@@ -1533,6 +1551,8 @@ public partial class SettingsViewModel : NavigateViewModelBase, IDisposable
                 Preferences.Save();
                 IsCustomThemeColorMode = mode.Value == (int)ThemeColorMode.Custom;
                 ApplyResolvedThemeColor();
+                // OldUI 需要重启后才完整生效
+                if (mode.Value == LunaiThemes.Master) IsRestartRequired = true;
             })
             .DisposeWith(_disposables);
 
