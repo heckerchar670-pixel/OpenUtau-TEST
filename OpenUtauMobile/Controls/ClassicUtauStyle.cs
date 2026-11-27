@@ -39,6 +39,17 @@ internal static class ClassicUtauStyle
         new(new FontFamily("avares://OpenUtauMobile/Assets/Fonts/DotGothic16-Regular.ttf#DotGothic16"));
 
     /// <summary>
+    /// 按实际排版高度在指定区域内垂直居中绘制像素文本。
+    /// </summary>
+    public static void DrawCentered(DrawingContext context, string text, double x, Rect area, double size,
+        IBrush brush)
+    {
+        using TextLayout layout = new(text, PixelFace, size, brush);
+        layout.Draw(context, new Point(Math.Round(x),
+            Math.Round(area.Y + (area.Height - layout.Height) / 2)));
+    }
+
+    /// <summary>
     /// 以像素字体绘制文本，坐标取整以保持清晰。
     /// </summary>
     public static void DrawText(DrawingContext context, string text, double x, double y, double size, IBrush brush)

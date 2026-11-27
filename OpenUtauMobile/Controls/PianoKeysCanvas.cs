@@ -19,7 +19,7 @@ namespace OpenUtauMobile.Controls;
 /// 每个手指按下发声，滑动换键，松开停声，互不干扰。
 /// 音频调用直接调用 PlaybackManager.PlayTone / EndTone。
 /// </summary>
-public class PianoKeysCanvas : Control
+public partial class PianoKeysCanvas : Control
 {
     #region 依赖属性
 
@@ -243,6 +243,12 @@ public class PianoKeysCanvas : Control
             (int)Math.Floor(ViewConstants.MaxTone - 1 - h / KeyHeight - KeyOffset));
         int toneMax = Math.Min(ViewConstants.MaxTone - 1,
             (int)Math.Ceiling(ViewConstants.MaxTone - 1 - KeyOffset));
+
+        if (ClassicUtauStyle.Enabled)
+        {
+            RenderClassicKeys(context, toneMin, toneMax, w, h);
+            return;
+        }
 
         for (int tone = toneMax; tone >= toneMin; tone--)
         {

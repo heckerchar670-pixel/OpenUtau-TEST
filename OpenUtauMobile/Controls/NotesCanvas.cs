@@ -604,7 +604,9 @@ public partial class NotesCanvas : Control, ICmdSubscriber
 
         if (hasOutline)
         {
-            context.DrawGeometry(null, ThemeResources.GetPen("Sem.Color.Outline", isPitchPen ? 2 : 1), outlineGeometry);
+            context.DrawGeometry(null, ClassicUtauStyle.Enabled && !isPitchPen
+                ? ClassicUtauStyle.PitchPen
+                : ThemeResources.GetPen("Sem.Color.Outline", isPitchPen ? 2 : 1), outlineGeometry);
         }
         if (hasPrimary)
         {

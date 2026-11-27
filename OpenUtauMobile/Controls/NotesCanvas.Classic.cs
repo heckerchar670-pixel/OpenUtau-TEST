@@ -66,12 +66,12 @@ public partial class NotesCanvas
         }
 
         if (size.Height < 10) return;
-        double fontSize = size.Height >= 32 ? 32 : 16;
-        if (size.Height < 16) fontSize = size.Height;
+        // 字号留出青色底线的空间
+        double fontSize = Math.Floor(Math.Min(32, size.Height - 3));
         if (size.Width >= fontSize)
         {
-            ClassicUtauStyle.DrawText(context, note.lyric, rect.X + 2,
-                rect.Y + (rect.Height - fontSize * 1.4) / 2, fontSize, ClassicUtauStyle.Text);
+            ClassicUtauStyle.DrawCentered(context, note.lyric, rect.X + 2,
+                new Rect(rect.X, rect.Y, rect.Width, rect.Height - 2), fontSize, ClassicUtauStyle.Text);
         }
 
         if (size.Width >= 24)
@@ -80,7 +80,7 @@ public partial class NotesCanvas
             var values = note.GetExpression(DocManager.Inst.Project,
                 DocManager.Inst.Project.tracks[Part.trackNo], OpenUtau.Core.Format.Ustx.VOL);
             float volume = values.Count > 0 ? values[0].Item1 : 100;
-            ClassicUtauStyle.DrawText(context, volume.ToString("0"), rect.X + 3, rect.Y - 18, 12,
+            ClassicUtauStyle.DrawText(context, volume.ToString("0"), rect.X + 4, rect.Y - 14, 10,
                 ClassicUtauStyle.Cyan);
         }
     }
