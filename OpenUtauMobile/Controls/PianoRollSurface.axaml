@@ -22,6 +22,7 @@
     <!-- UTAU 主题工具栏位于卷帘上方 -->
     <DockPanel>
     <c:ClassicUtauToolbar DockPanel.Dock="Top" />
+    <c:MasterEditorToolbar DockPanel.Dock="Top" />
     <Grid x:Name="PianoRollAreaGrid" ClipToBounds="True"
           Background="{DynamicResource Sem.Color.SurfaceContainerLow}">
 

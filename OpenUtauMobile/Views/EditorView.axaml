@@ -1,4 +1,4 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:localTokens="clr-namespace:OpenUtauMobile.Views.Tokens"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -54,6 +54,7 @@
     <Grid x:Name="EditorPageLayer" ClipToBounds="True">
     <DockPanel>
         <!-- 顶栏沿用全局规格；中间组在返回与页级操作之间居中。 -->
+        <c:MasterTitleBar DockPanel.Dock="Top" />
         <Border DockPanel.Dock="Top" Classes="TopBar">
             <Grid x:Name="TopToolbarGrid" ColumnDefinitions="Auto,3*,Auto,0,Auto">
                 <Button Classes="TopBarBtn" Command="{Binding BackCommand}"
