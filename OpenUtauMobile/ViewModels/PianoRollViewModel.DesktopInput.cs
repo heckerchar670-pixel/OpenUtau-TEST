@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using Avalonia;
 using Avalonia.Input;
@@ -147,6 +147,7 @@ namespace OpenUtauMobile.ViewModels
                     {
                         int duration = ResolveSnapUnit();
                         if (duration <= 0) duration = DocManager.Inst.Project.resolution;
+                        duration = ApplyClassicLength(duration);
                         UNote created = DocManager.Inst.Project.CreateNote(PointYToToneInt(point.Y), tick - EditingVoicePart.position, duration);
                         DocManager.Inst.StartUndoGroup(deferValidate: true);
                         DocManager.Inst.ExecuteCmd(new AddNoteCommand(EditingVoicePart, created));

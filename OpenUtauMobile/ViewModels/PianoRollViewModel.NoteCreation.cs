@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Input;
 using Avalonia;
 using OpenUtau.Core;
@@ -53,6 +53,7 @@ public partial class PianoRollViewModel
         if (tick < EditingVoicePart.position) return;
         int duration = ResolveSnapUnit();
         if (duration <= 0) duration = DocManager.Inst.Project.resolution;
+        duration = ApplyClassicLength(duration);
         _pendingNoteCreation = DocManager.Inst.Project.CreateNote(PointYToToneInt(point.Y), tick - EditingVoicePart.position, duration);
         this.RaisePropertyChanged(nameof(NoteCreationPreviewRect));
         this.RaisePropertyChanged(nameof(IsNoteCreationPreviewVisible));

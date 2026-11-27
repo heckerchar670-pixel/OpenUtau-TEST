@@ -104,7 +104,7 @@ namespace OpenUtauMobile.Services.SingerPlugins
             SingerTypeDescriptor[] descriptors =
             [
                 new("builtin:utau", USingerType.Classic, "UTAU",
-                    [Renderers.WORLDLINE_R, Renderers.WORLDLINE_R11, Renderers.WORLDLINE_R2, Renderers.CLASSIC], Renderers.WORLDLINE_R),
+                    [Renderers.WORLDLINE_R, Renderers.WORLDLINE_R11, Renderers.WORLDLINE_R2, Renderers.CLASSIC, Renderers.NOSTALGIA], Renderers.WORLDLINE_R),
                 new("builtin:enunu", USingerType.Enunu, "ENUNU", [Renderers.ENUNU], Renderers.ENUNU),
                 new("builtin:vogen", USingerType.Vogen, "Vogen", [Renderers.VOGEN], Renderers.VOGEN),
                 new("builtin:diffsinger", USingerType.DiffSinger, "DiffSinger", [Renderers.DIFFSINGER], Renderers.DIFFSINGER),

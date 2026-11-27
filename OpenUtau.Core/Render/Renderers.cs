@@ -21,6 +21,7 @@ namespace OpenUtau.Core.Render {
 
     public static class Renderers {
         public const string CLASSIC = "CLASSIC";
+        public const string NOSTALGIA = "NOSTALGIA";
         public const string WORLDLINE_R = "WORLDLINE-R";
         public const string WORLDLINE_R2 = "WORLDLINE-R2";
         public const string WORLDLINE_R11 = "WORLDLINE-R1.1";
@@ -30,7 +31,7 @@ namespace OpenUtau.Core.Render {
         public const string VOICEVOX = "VOICEVOX";
         public const string NEUTRINO = "NEUTRINO";
 
-        static readonly string[] classicRenderers = new[] { WORLDLINE_R, WORLDLINE_R11, WORLDLINE_R2, CLASSIC };
+        static readonly string[] classicRenderers = new[] { WORLDLINE_R, WORLDLINE_R11, WORLDLINE_R2, CLASSIC, NOSTALGIA };
         static readonly string[] enunuRenderers = new[] { ENUNU };
         static readonly string[] vogenRenderers = new[] { VOGEN };
         static readonly string[] diffSingerRenderers = new[] { DIFFSINGER };
@@ -39,6 +40,7 @@ namespace OpenUtau.Core.Render {
         static readonly string[] noRenderers = new string[0];
         static readonly HashSet<string> builtinRendererNames = new HashSet<string> {
             CLASSIC,
+            NOSTALGIA,
             WORLDLINE_R,
             WORLDLINE_R2,
             WORLDLINE_R11,
@@ -102,7 +104,8 @@ namespace OpenUtau.Core.Render {
                 WORLDLINE_R,
                 WORLDLINE_R11,
                 WORLDLINE_R2,
-                CLASSIC
+                CLASSIC,
+                NOSTALGIA
             };
             options.AddRange(GetExternalSupportedRenderers(USingerType.Classic));
             return options;
@@ -123,7 +126,9 @@ namespace OpenUtau.Core.Render {
             GetOrCreate(renderer)?.ExpressionGraphSlot ?? renderer;
 
         public static IRenderer CreateRenderer(string renderer) {
-            if (renderer == CLASSIC) {
+            if (renderer == NOSTALGIA) {
+                return new NostalgiaRenderer();
+            } else if (renderer == CLASSIC) {
                 return new ClassicRenderer();
             } else if (renderer == WORLDLINE_R2) {
                 return new WorldlineRenderer(version: 20);
