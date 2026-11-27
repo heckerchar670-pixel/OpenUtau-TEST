@@ -79,7 +79,7 @@ namespace OpenUtau.Plugin.Builtin {
             var vowel = string.Empty;
             if (prevNeighbour != null) {
                 var before = prevNeighbour.Value.lyric.Normalize();
-                var kana = Regex.IsMatch(before, "[a-zA-Z]") ? ToKana(before).LastOrDefault() : before;
+                var kana = ToKana(before).LastOrDefault() ?? before;
                 if (!string.IsNullOrEmpty(kana)) vowel = TailVowel(kana);
             }
 

@@ -1,4 +1,4 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -33,6 +33,9 @@
             </Border>
 
             <!-- 主布局 -->
+            <DockPanel>
+            <!-- 旧版首页菜单（仅 Master 主题显示） -->
+            <cm:MasterHomeMenu xmlns:cm="using:OpenUtauMobile.Controls" DockPanel.Dock="Bottom" />
             <Grid x:Name="MainLayoutGrid"
                   RowDefinitions="Auto, Auto, *, Auto"
                   RowSpacing="{x:Static foundation:LayoutTokens.SpaceL}"
@@ -241,6 +244,7 @@
                          HorizontalAlignment="Center" />
                 </Viewbox>
             </Grid>
+            </DockPanel>
         </DockPanel>
     </Border>
 </UserControl>

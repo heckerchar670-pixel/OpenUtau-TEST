@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -315,6 +315,7 @@ public partial class SettingsViewModel : NavigateViewModelBase, IDisposable
         new(LunaiThemes.OpenUtau, "OpenUtau"),
         new(LunaiThemes.Lunai, "LUNAI OpenUTAU"),
         new(LunaiThemes.Utau, "UTAU"),
+        new(LunaiThemes.Master, "OpenUtau Mobile Master"),
     };
 
     /// <summary>当前主题色模式。</summary>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Avalonia.Media;
 using OpenUtau.Core.Util;
@@ -12,17 +12,20 @@ public static class LunaiThemes
     public const int OpenUtau = 2;
     public const int Lunai = 3;
     public const int Utau = 4;
+    public const int Master = 5;
 
     private static readonly Color OpenUtauSeed = Color.Parse("#4EA6EA");
     private static readonly Color LunaiSeed = Color.Parse("#7466EE");
     private static readonly Color UtauSeed = Color.Parse("#6A00D5");
+    // Color de acento de la interfaz antigua (rama master).
+    private static readonly Color MasterSeed = Color.Parse("#FE71A3");
 
     public static int Current
     {
         get
         {
             int mode = Preferences.Default.ThemeColorMode;
-            return mode == OpenUtau || mode == Utau ? mode : Lunai;
+            return mode is OpenUtau or Utau or Master ? mode : Lunai;
         }
     }
 
@@ -32,6 +35,7 @@ public static class LunaiThemes
     {
         OpenUtau => OpenUtauSeed,
         Utau => UtauSeed,
+        Master => MasterSeed,
         _ => LunaiSeed,
     };
 
@@ -46,6 +50,8 @@ public static class LunaiThemes
         ["LunaiDark"] = "1E1E1E 252525 2C2B31 36343E F0EEF8 BEB9D0 8B86A0 45424F 8C7CF5 140A52 3F3590 E6E1FF A9A0E0 1F1850 4A4570 ECE9FF 7466EE 2A2A2A",
         ["UtauLight"] = "F0F0F0 F0F0F0 E1E1E1 D4D0C8 000000 333333 6E6E6E ACACAC 6A00D5 FFFFFF CCCCFF 240052 C0307A FFFFFF FFCCF0 4A0A30 FFFFFF 303030",
         ["UtauDark"] = "2B2B30 34343A 3E3E46 4A4A54 F0F0F0 C8C8D0 9A9AA4 5C5C68 B98CFF 22004D 4C3A7A EADDFF FF8AD8 45002E 70305C FFDCF2 C8C8C8 18181C",
+        ["MasterLight"] = "F0F0F0 F0F0F0 E0E0E0 D0D0D0 000000 555555 A0A0A0 C0C0C0 FE71A3 FFFFFF FFD6E4 4A0A25 202020 FFFFFF E0E0E0 111111 FFFFFF 303030",
+        ["MasterDark"] = "202020 303030 303030 505050 FFFFFF AAAAAA 707070 505050 FF4081 FFFFFF 6E2444 FFD9E6 EEEEEE 202020 505050 F0F0F0 D8D8D8 202020",
     };
 
     public static void Apply(Color seed, bool dark, Dictionary<string, Color> colors)
@@ -54,6 +60,7 @@ public static class LunaiThemes
         if (seed == OpenUtauSeed) name = "OpenUtau";
         else if (seed == LunaiSeed) name = "Lunai";
         else if (seed == UtauSeed) name = "Utau";
+        else if (seed == MasterSeed) name = "Master";
         else return;
 
         string[] parts = Palettes[name + (dark ? "Dark" : "Light")].Split(' ', StringSplitOptions.RemoveEmptyEntries);
