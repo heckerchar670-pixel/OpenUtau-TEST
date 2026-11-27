@@ -227,7 +227,12 @@ public partial class PianoKeysCanvas : Control
 
     #region 渲染
 
-    public override void Render(DrawingContext context)
+    private readonly PixelSurface _pixelSurface = new();
+
+    public override void Render(DrawingContext context) =>
+        _pixelSurface.Render(this, context, RenderScene);
+
+    private void RenderScene(DrawingContext context)
     {
         base.Render(context);
 

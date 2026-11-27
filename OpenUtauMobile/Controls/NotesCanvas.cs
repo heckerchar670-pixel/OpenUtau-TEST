@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Avalonia;
@@ -179,7 +179,12 @@ public partial class NotesCanvas : Control, ICmdSubscriber
 
     #region 渲染绘图
 
-    public override void Render(DrawingContext context)
+    private readonly PixelSurface _pixelSurface = new();
+
+    public override void Render(DrawingContext context) =>
+        _pixelSurface.Render(this, context, RenderScene);
+
+    private void RenderScene(DrawingContext context)
     {
         base.Render(context);
         context.DrawRectangle(Brushes.Transparent, null, Bounds.WithX(0).WithY(0)); // 绘制透明背景以启用点击事件
