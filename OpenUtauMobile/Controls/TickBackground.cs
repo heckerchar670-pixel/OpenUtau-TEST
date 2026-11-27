@@ -77,6 +77,11 @@ public class TickBackground : Control
         set => SetValue(RulerHeightProperty, value);
     }
 
+    /// <summary>
+    /// 是否使用经典 UTAU 网格线颜色。
+    /// </summary>
+    public bool IsClassic { get; set; }
+
     public bool ShowBarNumber
     {
         get => GetValue(ShowBarNumberProperty);
@@ -177,8 +182,9 @@ public class TickBackground : Control
         double pixelOffset = (TickOffset + TickOrigin) * TickWidth;
         double leftTick = TickOffset + TickOrigin;
         double rightTick = TickOffset + TickOrigin + Bounds.Width / TickWidth;
-        IPen barPen = ThemeResources.GetPen("Sem.Pen.Grid.Bar");
-        IPen beatPen = ThemeResources.GetPen("Sem.Pen.Grid.Beat");
+        bool classic = IsClassic && ClassicUtauStyle.Enabled;
+        IPen barPen = classic ? ClassicUtauStyle.BarPen : ThemeResources.GetPen("Sem.Pen.Grid.Bar");
+        IPen beatPen = classic ? ClassicUtauStyle.BeatPen : ThemeResources.GetPen("Sem.Pen.Grid.Beat");
         IPen snapGridPen = ThemeResources.GetPen("Sem.Pen.Grid.Snap");
         IPen snapMarkerPen = ThemeResources.GetPen("Sem.Pen.Grid.SnapMarker");
 

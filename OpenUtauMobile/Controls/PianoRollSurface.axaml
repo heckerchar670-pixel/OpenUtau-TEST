@@ -49,6 +49,7 @@
                 ProjectKey="{Binding ProjectKey}" />
             <!-- 纵向时间网格 覆盖右列全高（Row 0..1, Col 1） -->
             <c:TickBackground Grid.Row="0"
+                              IsClassic="True"
                               Grid.RowSpan="2"
                               Grid.Column="1"
                               TickWidth="{Binding TickWidth}"

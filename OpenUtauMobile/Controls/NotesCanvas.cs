@@ -17,8 +17,13 @@ using OpenUtauMobile.ViewModels;
 
 namespace OpenUtauMobile.Controls;
 
-public class NotesCanvas : Control, ICmdSubscriber
+public partial class NotesCanvas : Control, ICmdSubscriber
 {
+    public NotesCanvas()
+    {
+        InitClassicHold();
+    }
+
     #region 注册属性
 
     // 数据源
@@ -200,7 +205,14 @@ public class NotesCanvas : Control, ICmdSubscriber
                 continue; // 音符在左侧不可见，跳过
             }
 
-            RenderNoteBody(note, context, brush); // 主体
+            if (ClassicUtauStyle.Enabled)
+            {
+                RenderClassicNote(note, context); // 经典 UTAU 主体
+            }
+            else
+            {
+                RenderNoteBody(note, context, brush); // 主体
+            }
         }
 
         // ———— 绘制边框和调整音符长度手柄 ————
@@ -686,7 +698,9 @@ public class NotesCanvas : Control, ICmdSubscriber
             pitchGeometryContext.EndFigure(false);
         }
 
-        context.DrawGeometry(null, ThemeResources.GetPen("Sem.Color.Primary", 2.0), pitchGeometry);
+        context.DrawGeometry(null, ClassicUtauStyle.Enabled
+            ? ClassicUtauStyle.PitchPen
+            : ThemeResources.GetPen("Sem.Color.Primary", 2.0), pitchGeometry);
     }
 
     private void RebuildVibratoBrushCache(bool isDark)

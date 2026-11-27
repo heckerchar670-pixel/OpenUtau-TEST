@@ -85,6 +85,21 @@ public class PianoRollBackground : Control
         {
             double y = (ViewConstants.MaxTone - 1 - tone - KeyOffset) * keyHeight;
             bool isBlack = MusicMath.IsBlackKey(tone);
+
+            // UTAU 主题：每行一条分隔线，C 音下方使用深色线
+            if (ClassicUtauStyle.Enabled)
+            {
+                if (isBlack)
+                {
+                    context.DrawRectangle(ClassicUtauStyle.BlackRow, null, new Rect(0, y, width, keyHeight));
+                }
+
+                double rowY = Math.Round(y + keyHeight) + 0.5;
+                context.DrawLine(tone % 12 == 0 ? ClassicUtauStyle.OctavePen : ClassicUtauStyle.RowPen,
+                    new Point(0, rowY), new Point(width, rowY));
+                continue;
+            }
+
             bool isTonic = PianoKeyLabelFormatter.NormalizePitchClass(tone) ==
                 PianoKeyLabelFormatter.NormalizePitchClass(ProjectKey);
 
