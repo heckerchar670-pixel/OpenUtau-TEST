@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,11 +35,14 @@ namespace OpenUtau.Classic {
 
         static float[] Age(float[] input) {
             var output = new float[input.Length];
+            var delay = new float[97]; // 约 2.2 毫秒梳状滤波，产生金属质感
             float held = 0;
             for (int i = 0; i < input.Length; ++i) {
-                if (i % 2 == 0) held = input[i];   // 半采样率保持
-                float x = 0.35f * input[i] + 0.65f * held;
-                output[i] = MathF.Round(x * 2048f) / 2048f; // 12 位量化
+                if (i % 2 == 0) held = input[i];   // 半采样率保持，保留混叠
+                float x = held + 0.22f * delay[i % delay.Length];
+                delay[i % delay.Length] = held;
+                x = Math.Clamp(x * 0.88f, -1f, 1f);
+                output[i] = MathF.Round(x * 512f) / 512f; // 10 位量化
             }
             return output;
         }
