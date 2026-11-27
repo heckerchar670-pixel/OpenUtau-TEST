@@ -22,7 +22,6 @@ public class ClassicUtauToolbar : UserControl
     private readonly Button _tempo, _snap, _select, _pen, _pitch, _play, _stop, _undo, _redo;
     private EditorViewModel? _viewModel;
     private readonly Button _length;
-    private readonly MenuItem _save, _menuUndo, _menuRedo, _menuTempo, _menuPlay, _menuStop;
     private readonly TextBox _lyric = new() { PlaceholderText = "Lyric", MinHeight = 32 };
     private readonly TextBlock _bank = new() { FontSize = 11, VerticalAlignment = VerticalAlignment.Center };
     private static readonly int[] LengthValues = [0, 1, 2, 4, 8, 16, 32];
@@ -64,25 +63,7 @@ public class ClassicUtauToolbar : UserControl
         _redo = Add(Icon("M14,6 L8,0 V4 H2 V6 H0 V14 H9 V11 H3 V8 H8 V12 Z"));
         Add(Icon("M9,0 H12 L16,4 V7 L12,4 H11 V14 H9 V16 H4 V14 H2 V11 H4 V9 H9 Z"), () => _ = _viewModel?.PianoRollViewModel.ShowBulkLyricEditPopupAsync());
         panel.Children.Add(_bank);
-        // 经典菜单栏与歌词输入框，按手机竖屏排列
-        _save = Entry("Save");
-        _menuUndo = Entry("Undo");
-        _menuRedo = Entry("Redo");
-        _menuTempo = Entry("Tempo");
-        _menuPlay = Entry("Play / Pause");
-        _menuStop = Entry("Stop");
-        Menu menu = new();
-        menu.Items.Add(new TextBlock
-        {
-            Text = "♪UTAU", FontSize = 16, Foreground = Brush.Parse("#7000D0"),
-            VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(2, 0, 6, 0),
-        });
-        menu.Items.Add(Group("File", _save));
-        menu.Items.Add(Group("Edit", _menuUndo, _menuRedo,
-            Entry("Lyrics", () => _ = _viewModel?.PianoRollViewModel.ShowBulkLyricEditPopupAsync())));
-        menu.Items.Add(Group("View", Entry("Zoom in", () => Zoom(1.25)), Entry("Zoom out", () => Zoom(0.8))));
-        menu.Items.Add(Group("Project", _menuTempo));
-        menu.Items.Add(Group("Play", _menuPlay, _menuStop));
+        // 歌词输入框
 
         _lyric.KeyDown += (_, e) =>
         {
@@ -99,7 +80,6 @@ public class ClassicUtauToolbar : UserControl
 
         // 顶部留白避开分隔手柄
         StackPanel root = new() { Margin = new Thickness(0, 16, 0, 0) };
-        root.Children.Add(menu);
         root.Children.Add(panel);
         root.Children.Add(lyricRow);
         Content = root;
@@ -141,12 +121,6 @@ public class ClassicUtauToolbar : UserControl
         _stop.Command = viewModel.StopCommand;
         _undo.Command = viewModel.UndoCommand;
         _redo.Command = viewModel.RedoCommand;
-        _save.Command = viewModel.SaveCommand;
-        _menuUndo.Command = viewModel.UndoCommand;
-        _menuRedo.Command = viewModel.RedoCommand;
-        _menuTempo.Command = viewModel.EditBpmCommand;
-        _menuPlay.Command = viewModel.PlayPauseCommand;
-        _menuStop.Command = viewModel.StopCommand;
         Refresh();
     }
 
@@ -181,20 +155,6 @@ public class ClassicUtauToolbar : UserControl
 
     private static PathIcon Icon(string data) =>
         new() { Data = Geometry.Parse(data), Width = 14, Height = 14 };
-
-    private static MenuItem Entry(string header, Action? click = null)
-    {
-        MenuItem item = new() { Header = header };
-        if (click != null) item.Click += (_, _) => click();
-        return item;
-    }
-
-    private static MenuItem Group(string header, params MenuItem[] children)
-    {
-        MenuItem item = new() { Header = header };
-        foreach (MenuItem child in children) item.Items.Add(child);
-        return item;
-    }
 
     /// <summary>
     /// 按空格把输入的歌词依次写入选中的音符。
