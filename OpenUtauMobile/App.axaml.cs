@@ -44,6 +44,15 @@ public partial class App : Application
                 new FontFamily(pixelFont.AbsoluteUri + "#DotGothic16");
         }
 
+        // Lunai: estilos de pulido (solo se cargan con este tema, los demas no se tocan)
+        if (LunaiThemes.Current == LunaiThemes.Lunai)
+        {
+            Styles.Add(new Avalonia.Markup.Xaml.Styling.StyleInclude(new Uri("avares://OpenUtauMobile/"))
+            {
+                Source = new Uri("avares://OpenUtauMobile/Themes/OpenUtauMobile/Styles/LunaiPolish.axaml"),
+            });
+        }
+
         // Initialize runtime theme resources before creating UI.
         ThemeManagerV2.Initialize();
         ThemeManagerV2.ApplyConfiguredTheme(ServiceHub.SystemAccentColorProvider, out _, out _);

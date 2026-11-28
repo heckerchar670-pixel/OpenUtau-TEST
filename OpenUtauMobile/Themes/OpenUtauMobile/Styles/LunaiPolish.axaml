@@ -1,0 +1,19 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- 仅 Lunai 主题加载：顶栏取消半透明并加一条细分隔线，层次更清晰 -->
+    <Style Selector="Border.TopBar">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+    </Style>
+
+    <!-- 标题与对话框标题：更紧凑的字重，数字更整齐 -->
+    <Style Selector="TextBlock.TopBarTitle, TextBlock.PopupTitle">
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <!-- 对话框主体与卡片：细边框代替厚重阴影 -->
+    <Style Selector="Border.card">
+        <Setter Property="BorderBrush" Value="{DynamicResource Sem.Color.OutlineVariant}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+</Styles>

@@ -4,7 +4,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using OpenUtau.Core.Util;
+using OpenUtau.Core;
 using OpenUtauMobile.ViewModels;
 
 namespace OpenUtauMobile.Controls;
