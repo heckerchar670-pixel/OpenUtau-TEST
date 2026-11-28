@@ -40,6 +40,9 @@ public sealed class PhonemizerPickerViewModel : PopupViewModelBase, IDisposable
         });
         PhonemizerFactory[] factories = AllowTrackDefault
             ? NotePhonemizerResolver.GetSelectableFactories() : PhonemizerFactory.GetAll();
+        // CLASSIC 假名音素器只在 UTAU 主题下显示（当前已选的除外）
+        factories = factories.Where(f => !(f.type.Name.StartsWith("Classic") && f.type.Name.EndsWith("NostalgiaPhonemizer"))
+            || OpenUtauMobile.Controls.ClassicUtauStyle.Enabled || f.Id == request.CurrentName).ToArray();
         foreach (IGrouping<string, PhonemizerFactory> group in factories
             .GroupBy(f => f.language ?? string.Empty).OrderBy(g => g.Key))
         {

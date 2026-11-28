@@ -79,7 +79,7 @@ public class ClassicUtauToolbar : UserControl
         lyricRow.Children.Add(_lyric);
 
         // 顶部留白避开分隔手柄
-        StackPanel root = new() { Margin = new Thickness(0, 16, 0, 0) };
+        StackPanel root = new() { Margin = new Thickness(14, 16, 0, 0) };
         root.Children.Add(panel);
         root.Children.Add(lyricRow);
         Content = root;

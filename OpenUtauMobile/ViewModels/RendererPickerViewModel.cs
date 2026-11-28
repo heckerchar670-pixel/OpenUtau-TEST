@@ -94,7 +94,9 @@ public class RendererPickerViewModel : PopupViewModelBase, ICmdSubscriber, IDisp
         _originalGraph = track.ExpressionGraph;
         if (_original.renderer != null)
             _graphDrafts[RendererRegistry.GetExpressionGraphSlot(_original.renderer)] = _originalGraph;
-        if (_singer is { Found: true }) Renderers.Load(Services.ExternalSingerPluginService.GetSupportedRenderers(_singer));
+        // NOSTALGIA 只在 UTAU 主题下显示（已选中的除外，避免已有轨道出错）
+        if (_singer is { Found: true }) Renderers.Load(Services.ExternalSingerPluginService.GetSupportedRenderers(_singer)
+            .Where(r => r != RendererRegistry.NOSTALGIA || OpenUtauMobile.Controls.ClassicUtauStyle.Enabled || r == _original.renderer));
         _selectedRenderer = _original.renderer != null && Renderers.Contains(_original.renderer) ? _original.renderer : null;
         _selectedResampler = _original.resampler;
         _selectedWavtool = _original.wavtool;

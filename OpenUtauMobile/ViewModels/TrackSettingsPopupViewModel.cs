@@ -286,6 +286,9 @@ public sealed class TrackSettingsPopupViewModel : PopupViewModelBase, IDisposabl
         Renderers.Clear();
         string[] supported = DraftSinger is { Found: true } singer
             ? OpenUtauMobile.Services.ExternalSingerPluginService.GetSupportedRenderers(singer)
+                // NOSTALGIA 只在 UTAU 主题下显示（当前已选的除外）
+                .Where(r => r != CoreRenderers.NOSTALGIA || OpenUtauMobile.Controls.ClassicUtauStyle.Enabled || r == DraftRenderer)
+                .ToArray()
             : [];
         HasNoSupportedRenderers = DraftSinger is { Found: true } && supported.Length == 0;
         IsRendererEnabled = DraftSinger is { Found: true } && supported.Length > 0;

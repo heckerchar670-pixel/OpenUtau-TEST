@@ -33,16 +33,34 @@ namespace OpenUtau.Classic {
             return result;
         }
 
+        // 以 44.1kHz 为基准的参数；全部确定性计算，保证缓存结果一致
+        const float SampleRate = 44100f;
+        const float CutoffHz = 9000f;      // 旧版重采样器的高频衰减
+        const int FrameSamples = 220;      // 约 5 毫秒一帧，模拟旧引擎按帧合成的台阶感
+        const float FrameJitter = 0.015f;  // 帧间音量的细微起伏
+        const float NoiseFloor = 0.0007f;  // 底噪（约 -63 dB）
+
         static float[] Age(float[] input) {
             var output = new float[input.Length];
-            var delay = new float[97]; // 约 2.2 毫秒梳状滤波，产生金属质感
+            var delay = new float[97]; // 约 2.2 毫秒梳状滤波，产生轻微金属质感
+            float lowpass = 0;
+            float coefficient = 1f - MathF.Exp(-2f * MathF.PI * CutoffHz / SampleRate);
             float held = 0;
+            uint seed = 2463534242;     // xorshift 噪声种子
+            float frameGain = 1f;
             for (int i = 0; i < input.Length; ++i) {
-                if (i % 2 == 0) held = input[i];   // 半采样率保持，保留混叠
-                float x = held + 0.22f * delay[i % delay.Length];
+                seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5;
+                float noise = (seed / (float)uint.MaxValue - 0.5f) * 2f;
+                if (i % FrameSamples == 0) {
+                    frameGain = 1f + FrameJitter * noise;
+                }
+                lowpass += coefficient * (input[i] - lowpass);          // 先限带，再半采样率保持，混叠更接近旧引擎
+                if (i % 2 == 0) held = lowpass;
+                float x = held + 0.12f * delay[i % delay.Length];
                 delay[i % delay.Length] = held;
-                x = Math.Clamp(x * 0.88f, -1f, 1f);
-                output[i] = MathF.Round(x * 512f) / 512f; // 10 位量化
+                x = x * frameGain + NoiseFloor * noise;
+                x = MathF.Tanh(x * 1.1f) * 0.92f;                       // 轻微饱和
+                output[i] = MathF.Round(x * 2048f) / 2048f;             // 12 位量化
             }
             return output;
         }

@@ -74,4 +74,35 @@ namespace OpenUtau.Plugin.Builtin {
             return ToMorae(text.ToString());
         }
     }
+
+    [Phonemizer("CLASSIC French to Japanese Phonemizer", "CLASSIC FR", language: "FR")]
+    public class ClassicFrenchNostalgiaPhonemizer : ClassicRuleNostalgiaPhonemizer {
+        // 法语：先处理重音与鼻化元音，再处理辅音，最后去掉词尾不发音的字母
+        protected override (string, string)[] Rules => new[] {
+            ("cœ", "ke"), ("[àâä]", "a"), ("[éèêë]", "e"), ("[îï]", "i"), ("[ôö]", "o"), ("[ùûü]", "u"), ("ç", "s"), ("œ", "e"),
+            ("(?<=[aeiouy])[tdsxzp]+$", ""),
+            ("eau|au", "o"), ("ou", "u"), ("oi", "wa"), ("ai|ei", "e"), ("eu", "e"),
+            ("(ain|ein|in|im|un|um)(?![aeiouymn])", "an"),
+            ("(en|an|em|am)(?![aeiouymn])", "an"),
+            ("(on|om)(?![aeiouymn])", "on"),
+            ("gn", "N"), ("ch", "S"), ("ph", "f"), ("qu", "k"),
+            ("gu(?=[eiy])", "G"), ("g(?=[eiy])", "J"), ("j", "J"),
+            ("c(?=[eiy])", "s"), ("c", "k"), ("h", ""), ("v", "b"), ("l", "r"), ("x", "ks"), ("y", "i"),
+            ("e(?=s?$)", ""), ("G", "g"),
+        };
+    }
+
+    [Phonemizer("CLASSIC Chinese Pinyin to Japanese Phonemizer", "CLASSIC ZH", language: "ZH")]
+    public class ClassicChineseNostalgiaPhonemizer : ClassicRuleNostalgiaPhonemizer {
+        // 拼音（可带声调符号）：声母、介音与鼻音韵尾近似为假名。汉字需要先转成拼音
+        protected override (string, string)[] Rules => new[] {
+            ("[āáǎà]", "a"), ("[ēéěè]", "e"), ("[īíǐì]", "i"), ("[ōóǒò]", "o"), ("[ūúǔù]", "u"),
+            ("[ǖǘǚǜü]", "u"), ("v", "u"),
+            ("ng", "n"), ("ong", "on"),
+            ("zh", "J"), ("ch", "C"), ("sh", "S"), ("x", "S"), ("q", "C"), ("j", "J"), ("c", "s"),
+            ("^yi", "i"), ("^wu", "u"), ("^yu", "yu"), ("^ye", "ie"),
+            ("ui", "wei"), ("iu", "yu"), ("l", "r"),
+            ("([JCS])i(?=[aeou])", "$1"),
+        };
+    }
 }

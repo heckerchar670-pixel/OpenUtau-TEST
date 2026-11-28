@@ -149,7 +149,17 @@ public class TickBackground : Control
         }
     }
 
+    private readonly PixelSurface _pixelSurface = new();
+
+    // UTAU 主题下先低分辨率离屏绘制再整数倍放大，使标尺也呈现像素感
     public override void Render(DrawingContext context)
+    {
+        // 只有钢琴卷帘的标尺（IsClassic）才像素化，编曲区保持原样
+        if (IsClassic) _pixelSurface.Render(this, context, RenderScene);
+        else RenderScene(context);
+    }
+
+    private void RenderScene(DrawingContext context)
     {
         if (TickWidth <= 0)
         {
