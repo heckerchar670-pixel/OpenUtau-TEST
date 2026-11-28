@@ -16,4 +16,22 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Sem.Color.OutlineVariant}" />
         <Setter Property="BorderThickness" Value="1" />
     </Style>
+
+    <!-- 首页动作按钮：缩小到四个都能完整显示，边框更细 -->
+    <Style Selector="Button.HomeActionButton">
+        <Setter Property="Width" Value="68" />
+        <Setter Property="Height" Value="68" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Sem.Color.OutlineVariant}" />
+    </Style>
+
+    <!-- 歌手卡片：细边框，悬停/按下时边框提亮 -->
+    <Style Selector="Button.SingerCard">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Sem.Color.OutlineVariant}" />
+    </Style>
+    <Style Selector="Button.SingerCard:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource Sem.Color.Primary}" />
+    </Style>
 </Styles>

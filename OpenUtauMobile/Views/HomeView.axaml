@@ -85,6 +85,9 @@
                         Padding="10"
                         Background="{DynamicResource Sem.Color.SurfaceContainerLow}"
                         CornerRadius="{x:Static foundation:ShapeTokens.CornerL}">
+                    <StackPanel Spacing="10">
+                    <!-- Lunai：大卡片，其他主题不显示 -->
+                    <cm:LunaiHomeHero />
                     <ScrollViewer x:Name="ActionButtonsScrollViewer"
                                   HorizontalScrollBarVisibility="Hidden"
                                   VerticalScrollBarVisibility="Disabled">
@@ -129,6 +132,7 @@
                             </Button>
                         </StackPanel>
                     </ScrollViewer>
+                    </StackPanel>
                 </Border>
 
                 <!-- 最近打开 -->
