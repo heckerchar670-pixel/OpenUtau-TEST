@@ -23,6 +23,7 @@
     <DockPanel>
     <c:ClassicUtauToolbar DockPanel.Dock="Top" />
     <c:MasterEditorToolbar DockPanel.Dock="Top" />
+    <c:ClassicUtauStatusBar DockPanel.Dock="Bottom" />
     <Grid x:Name="PianoRollAreaGrid" ClipToBounds="True"
           Background="{DynamicResource Sem.Color.SurfaceContainerLow}">
 
